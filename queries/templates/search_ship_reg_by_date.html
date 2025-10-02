@@ -1,0 +1,42 @@
+{% extends "base_for_search.html" %}
+{% block title %}Поиск{% endblock %}
+{% block name_of_search %}Посмотреть регистрации всех судов за месяц{% endblock %}
+
+{% block form %}
+<form action="{{ url_for('queries_app.search_ship_reg') }}" method="POST">
+    <tr>
+        <td class="no-padding">
+            <input type="month" name="date" placeholder="Дата" autocomplete="off" required minlength="3">
+        </td>
+    </tr>
+    <tr>
+        <td style="padding: 0;">
+            <input type="submit" value="Найти">
+        </td>
+    </tr>
+</form>
+{% endblock %}
+
+{% block table_header %}
+<tr>
+    <th>Наименование</th>
+    <th>Тип</th>
+    <th>Порт приписки</th>
+    <th>Дата прибытия</th>
+    <th>Дата отбытия</th>
+    <th>Причал</th>
+</tr>
+{% endblock %}
+
+{% block table_body %}
+{% for item in result %}
+<tr>
+    <td>{{ item['name_s'] }}</td>
+    <td>{{ item['type_s'] }}</td>
+    <td>{{ item['homeport'] }}</td>
+    <td>{{ item['date_of_arrival'] }}</td>
+    <td>{{ item['date_of_leaving'] }}</td>
+    <td>{{ item['type_j'] }}</td>
+</tr>
+{% endfor %}
+{% endblock %}

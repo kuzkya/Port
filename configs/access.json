@@ -1,0 +1,28 @@
+{
+    "coordinator": [
+        "search_ship_reg",
+        "search_ship_count_rep",
+        "queries_index",
+        "registrations"
+    ],
+    "supervisor": [
+        "search_emp_by_spec",
+        "search_count_by_emp",
+        "queries_index"
+    ],
+    "manager": [
+        "reports_index",
+        "view_report",
+        "create_report"
+    ],
+    "director": [
+        "reports_index",
+        "view_report"
+    ],
+    "external": [
+        "basket_index",
+        "personal_account",
+        "ship_register",
+        "show_current_regs"
+    ]
+}

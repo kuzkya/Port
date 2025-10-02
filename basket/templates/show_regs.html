@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <title>Просмотр регистраций</title>
+    <style>
+        .accept {
+            background-color: var(--message-color) !important;
+            border-radius: 0 0 0 0 !important;
+        }
+
+        .deny {
+            background-color: var(--error-color) !important;
+            border-radius: 0 0 0 0 !important;
+        }
+
+        .accept:hover {
+            background-color: #3f9990 !important;
+            cursor: pointer;
+        }
+
+        .deny:hover {
+            background-color: #c94c4c !important;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <div class="container">
+            <div class="container-centered">
+                <div class="mytable-for-results">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th colspan="9">
+                                    <div class="label_page">
+                                        Заявки на регистрацию
+                                    </div>
+                                </th>
+                            </tr>
+                            <tr>
+                                <th>Дата прибытия</th>
+                                <th>Дата отплытия</th>
+                                <th>Фамилия сотрудника порта</th>
+                                <th>Причал</th>
+                                <th>Статус</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for row in registrations %}
+                            <tr>
+                                <td>
+                                    {{ row['date_of_arrival'] }}
+                                </td>
+                                <td>
+                                    {{ row['date_of_leaving'] }}
+                                </td>
+                                <td>
+                                    {{ row['surname'] }}
+                                </td>
+                                <td>
+                                    {{ row['type_j'] }}
+                                </td>
+                                <td>
+                                    {{ row['status'] }}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td class="no-padding" colspan="1">
+                                    <form action="{{ url_for('index_handler') }}" method="GET">
+                                        <input type="submit" value="На главную">
+                                    </form>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+            {% for category, message in messages %}
+            <div class="message">
+                {% if category == 'okay' %}
+                <div class="okay">
+                    {{ message }}
+                </div>
+                {% endif %}
+                {% if category == 'error' %}
+                <div class="error">
+                    {{ message }}
+                </div>
+                {% endif %}
+            </div>
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+        </div>
+    </main>
+
+    <div id="loading">
+        <div class="spinner"></div>
+    </div>
+</body>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="/static/js/pageEventHandlers.js"></script>
+
+</html>

@@ -1,0 +1,14 @@
+[
+    {
+        "rep_name": "Отчет по регистрациям кораблей",
+        "rep_id": "1",
+        "procedure": "fill_reports_reg",
+        "sql_statement": "show_reg_reports.sql"
+    },
+    {
+        "rep_name": "Отчет примерный",
+        "rep_id": "2",
+        "procedure": "",
+        "sql_statement": ".sql"
+    }
+]

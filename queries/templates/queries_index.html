@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="/static/images/icon.svg" type="image/x-icon">
+    <title>Выполнение запроса</title>
+</head>
+
+<body>
+    <main>
+        <div class="container">
+            <div class="container-centered">
+                <div class="mytable">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>
+                                    <div class="label_page">
+                                        Выполнение запроса
+                                    </div>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if session['role'] == 'supervisor' %}
+                            <tr>
+                                <td class="no-padding">
+                                    <form action="{{ url_for('queries_app.search_count_by_emp') }}" method="GET">
+                                        <input type="submit"
+                                            value="Посмотреть сколько каждый сотрудник зарегистрировал судов">
+                                    </form>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="no-padding">
+                                    <form action="{{ url_for('queries_app.search_emp_by_spec') }}" method="GET">
+                                        <input type="submit" value="Поиск сотрудников по специальности">
+                                    </form>
+                                </td>
+                            </tr>
+                            {% endif %}
+                            {% if session['role'] == 'coordinator' %}
+                            <tr>
+                                <td class="no-padding">
+                                    <form action="{{ url_for('queries_app.search_ship_count_rep') }}" method="GET">
+                                        <input type="submit"
+                                            value="Посмотреть сколько судов зарегистрировалось за месяц">
+                                    </form>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="no-padding">
+                                    <form action="{{ url_for('queries_app.search_ship_reg') }}" method="GET">
+                                        <input type="submit" value="Посмотреть регистрации всех судов за месяц">
+                                    </form>
+                                </td>
+                            </tr>
+                            {% endif %}
+                            <tr>
+                                <td class="no-padding">
+                                    <form action="{{ url_for('index_handler') }}" method="GET">
+                                        <input type="submit" value="На главную">
+                                    </form>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+            {% for category, message in messages %}
+            <div class="message">
+                {% if category == 'okay' %}
+                <div class="okay">
+                    {{ message }}
+                </div>
+                {% endif %}
+                {% if category == 'error' %}
+                <div class="error">
+                    {{ message }}
+                </div>
+                {% endif %}
+            </div>
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+        </div>
+    </main>
+
+    <div id="loading">
+        <div class="spinner"></div>
+    </div>
+</body>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="/static/js/pageEventHandlers.js"></script>
+
+</html>
